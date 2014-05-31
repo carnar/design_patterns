@@ -12,7 +12,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
 		\Mockery::close();
 	}
 
-	function testItCallsThePersistenceWhenAddingAComment()
+	public function testItCallsThePersistenceWhenAddingAComment()
 	{
         $persistenceGateway = \Mockery::mock('PersistenceInterface');
         $commentRepository = new CommentRepository($persistenceGateway);
@@ -26,7 +26,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
         $commentRepository->add($comment);
 	}
 
-	function testAPersitedCommentCanBeRetrievedFromTheGateway()
+	public function testAPersitedCommentCanBeRetrievedFromTheGateway()
 	{
 		$persistenceGateway = new InMemoryPersistence();
 		$commentRepository = new CommentRepository($persistenceGateway);
@@ -55,6 +55,11 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
         					->once()->with($commentData2);
 
         $commentRepository->add([$comment1, $comment2]);
+		
+	}
+
+	public function testItCanFindAllComments()
+	{
 		
 	}
 
