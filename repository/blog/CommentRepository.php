@@ -9,15 +9,32 @@ class CommentRepository {
 		$this->persistence = $persistence;
 	}
 
-	public function add(Comment $comment)
+	public function add($commentData)
 	{
-		$this->persistence->persist([
-			$comment->getPostId(),
-			$comment->getAuthor(),
-			$comment->getAuthorEmail(),
-			$comment->getSubject(),
-			$comment->getBody()
-		]);
+
+		if(is_array($commentData))
+		{
+			foreach ($commentData as $comment) {
+				$this->persistence->persist([
+					$comment->getPostId(),
+					$comment->getAuthor(),
+					$comment->getAuthorEmail(),
+					$comment->getSubject(),
+					$comment->getBody()
+				]);
+
+			}
+		}
+		else
+		{		
+			$this->persistence->persist([
+				$commentData->getPostId(),
+				$commentData->getAuthor(),
+				$commentData->getAuthorEmail(),
+				$commentData->getSubject(),
+				$commentData->getBody()
+			]);
+		}
 	}
 
 }
