@@ -1,5 +1,4 @@
 <?php 
-
 require_once 'PersistenceInterface.php';
 
 class InMemoryPersistence implements PersistenceInterface {
@@ -14,6 +13,11 @@ class InMemoryPersistence implements PersistenceInterface {
 	public function retrieve($id)
 	{
 		return $this->data[$id];
+	}
+
+	public function retrieveAll()
+	{
+		return $this->data;
 	}
 
 }

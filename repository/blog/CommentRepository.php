@@ -1,4 +1,5 @@
 <?php 
+require_once 'InMemoryPersistence.php';
 
 class CommentRepository {
 	
@@ -6,12 +7,11 @@ class CommentRepository {
 	
 	function __construct(PersistenceInterface $persistence = null)
 	{
-		$this->persistence = $persistence;
+		$this->persistence = $persistence? : new InMemoryPersistence();
 	}
 
 	public function add($commentData)
 	{
-
 		if(is_array($commentData))
 		{
 			foreach ($commentData as $comment) {
@@ -36,4 +36,15 @@ class CommentRepository {
 		
 	}
 
+	public function findAll()
+	{
+		$allCommentsData = $this->persistence->retrieveAll();
+		$comments = [];
+
+		foreach ($allCommentsData as $commentData) {
+			$comments[] = $this->commentFactory->make($commentData);
+		}
+		
+		return $comments;
+	}
 }

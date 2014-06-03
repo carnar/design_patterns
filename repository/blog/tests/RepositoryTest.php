@@ -65,7 +65,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
 		$commentData1 = [1, 'x', 'x', 'x', 'x'];
 		$comment1 = (new CommentFactory())->make($commentData1);
 
-		$commentData2 = [2, 'x', 'x', 'x', 'x'];
+		$commentData2 = [2, 'y', 'y', 'y', 'y'];
 		$comment2 = (new CommentFactory())->make($commentData2);
 
 		$repository->add($comment1);
