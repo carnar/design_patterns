@@ -60,7 +60,18 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
 
 	public function testItCanFindAllComments()
 	{
-		
+		$repository = new CommentRepository();
+
+		$commentData1 = [1, 'x', 'x', 'x', 'x'];
+		$comment1 = (new CommentFactory())->make($commentData1);
+
+		$commentData2 = [2, 'x', 'x', 'x', 'x'];
+		$comment2 = (new CommentFactory())->make($commentData2);
+
+		$repository->add($comment1);
+		$repository->add($comment2);
+
+		$this->assertEquals([$comment1, $comment2], $repository->findAll());
 	}
 
 }
