@@ -1,13 +1,16 @@
 <?php 
 require_once 'InMemoryPersistence.php';
+require_once 'CommentFactory.php';
 
 class CommentRepository {
 	
 	private $persistence;
+	private $commentFactory;
 	
 	function __construct(PersistenceInterface $persistence = null)
 	{
 		$this->persistence = $persistence? : new InMemoryPersistence();
+		$this->commentFactory = new CommentFactory();
 	}
 
 	public function add($commentData)
@@ -46,5 +49,14 @@ class CommentRepository {
 		}
 		
 		return $comments;
+	}
+
+	public function findByPostId($postId)
+	{
+		return array_values(
+			array_filter($this->findAll(), function ($comment) use ($postId) {
+        		return $comment->getPostId() == $postId;
+   			})
+		);
 	}
 }
